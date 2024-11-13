@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+
+# Diretórios de build
+dist/
+build/
+
+# Arquivos de configuração locais (garantir que .env.production está ignorado mas não package.json)
+.env
+.env.development
+.env.production
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração da IDE/editor
+.idea/
+.vscode/

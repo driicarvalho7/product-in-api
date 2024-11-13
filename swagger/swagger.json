@@ -1,0 +1,63 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API de autenticação simples com JWT",
+      "version": "1.0.0",
+      "title": "ProductIn API"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "Operações de autenticação"
+      }
+    ],
+    "paths": {
+      "/login": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Realiza login",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Credenciais",
+              "description": "Nome de usuário e senha",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Login bem-sucedido, retorna token JWT" },
+            "401": { "description": "Credenciais inválidas" }
+          }
+        }
+      },
+      "/protected": {
+        "get": {
+          "tags": ["Auth"],
+          "summary": "Acessa rota protegida com JWT",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "description": "Token JWT"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Acesso concedido" },
+            "403": { "description": "Token inválido ou ausente" }
+          }
+        }
+      }
+    }
+  }
+  
