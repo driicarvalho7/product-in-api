@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import routes from "./routes/index";
 import { connectDB } from "./database/connection";
 import swaggerUi from "swagger-ui-express";
@@ -17,6 +18,7 @@ console.log(`Loaded DB_CONNECTION: ${DB_CONNECTION}`);
 const app = express();
 const isPostgres = DB_CONNECTION === "postgres";
 
+app.use(cors());
 app.use(express.json());
 
 const swaggerDocument = swaggerJSDoc(swaggerOptions);

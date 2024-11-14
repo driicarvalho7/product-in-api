@@ -1,3 +1,10 @@
+import { ENVIRONMENT } from "./envConfigs";
+
+const base_url =
+  ENVIRONMENT == "production"
+    ? "https://product-in-api.onrender.com"
+    : "http://localhost:3000";
+
 // Configuração do Swagger
 export const swaggerOptions = {
   definition: {
@@ -9,7 +16,7 @@ export const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000/api/v0",
+        url: `${base_url}/api/v0`,
         description: "Development server",
       },
     ],

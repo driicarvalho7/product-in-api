@@ -12,7 +12,7 @@ const router = Router();
  */
 /**
  * @swagger
- * /signUp:
+ * /signIn:
  *   post:
  *     summary: Realiza o login do usuário
  *     requestBody:
@@ -41,11 +41,11 @@ const router = Router();
  *       401:
  *         description: Credenciais inválidas
  */
-router.post("/signUp", AuthController.login);
+router.post("/signIn", AuthController.login);
 
 /**
  * @swagger
- * /signIn:
+ * /signUp:
  *   post:
  *     summary: Cria um novo usuário
  *     requestBody:
@@ -76,7 +76,7 @@ router.post("/signUp", AuthController.login);
  *                 email:
  *                   type: string
  */
-router.post("/signIn", UserController.create);
+router.post("/signUp", UserController.create);
 
 /**
  * @swagger
