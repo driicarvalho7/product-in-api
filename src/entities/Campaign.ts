@@ -16,6 +16,9 @@ export class Campaign {
   @Column()
   name!: string;
 
+  @Column({ nullable: true })
+  start_date!: Date;
+
   @OneToMany(
     () => CampaignProduct,
     (campaignProduct) => campaignProduct.campaign

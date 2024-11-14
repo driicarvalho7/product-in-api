@@ -19,6 +19,7 @@ export class CampaignController {
     const campaignRepository = getRepository(Campaign);
     const campaigns = await campaignRepository.find({
       select: ["id", "name"],
+      order: { id: "ASC" },
     });
     res.json(campaigns);
   }

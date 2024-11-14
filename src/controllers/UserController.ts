@@ -13,7 +13,13 @@ export class UserController {
 
   // Criar um novo usuário com senha criptografada
   static async create(req: Request, res: Response) {
+    const { email } = req.body;
     const userRepository = getRepository(User);
+
+    const user = await userRepository.findOne({ where: { email } });
+    if (user) {
+      res.status(400).json({ message: "e-mail alredy existis" });
+    }
 
     try {
       // Criptografar a senha antes de salvar
