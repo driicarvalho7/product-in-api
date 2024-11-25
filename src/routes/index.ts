@@ -180,6 +180,48 @@ router.get("/campaigns_names", authMiddleware, CampaignController.getAllNames);
 
 /**
  * @swagger
+ * /dashboard_data:
+ *   get:
+ *     summary: Retorna dados consolidados da campanha (produtos, peso total, pacotes)
+ *     parameters:
+ *       - in: query
+ *         name: campaignId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Dados consolidados da campanha
+ */
+router.get(
+  "/dashboard_data",
+  authMiddleware,
+  CampaignController.getDashboardData
+);
+
+/**
+ * @swagger
+ * /products_export/{campaignId}:
+ *   get:
+ *     summary: Exporta os produtos da campanha em um arquivo Excel
+ *     parameters:
+ *       - in: path
+ *         name: campaignId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Retorna o arquivo Excel em base64
+ */
+router.get(
+  "/products_export/:campaignId",
+  authMiddleware,
+  CampaignController.exportProducts
+);
+
+/**
+ * @swagger
  * /campaigns:
  *   post:
  *     summary: Cria uma nova campanha
@@ -274,6 +316,25 @@ router.get("/products", authMiddleware, ProductController.getAll);
 
 /**
  * @swagger
+ * /productByCodebar:
+ *   get:
+ *     summary: Busca um produto pelo código de barras
+ *     parameters:
+ *       - in: query
+ *         name: codebar
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Produto encontrado
+ *       404:
+ *         description: Produto não encontrado
+ */
+router.get("/productByCodebar", authMiddleware, ProductController.getByCodebar);
+
+/**
+ * @swagger
  * /products:
  *   post:
  *     summary: Cria um novo produto
@@ -312,5 +373,58 @@ router.get("/products", authMiddleware, ProductController.getAll);
  *                   type: string
  */
 router.post("/products", authMiddleware, ProductController.create);
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     summary: Atualiza um produto existente
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               codebar:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               weight_value:
+ *                 type: number
+ *               weight_type:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Produto atualizado com sucesso
+ *       404:
+ *         description: Produto não encontrado
+ */
+router.put("/products/:id", authMiddleware, ProductController.update);
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     summary: Remove um produto existente
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Produto removido com sucesso
+ *       404:
+ *         description: Produto não encontrado
+ */
+router.delete("/products/:id", authMiddleware, ProductController.delete);
 
 export default router;

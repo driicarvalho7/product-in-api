@@ -25,9 +25,13 @@ export class AuthController {
       }
 
       // Cria token de autenticação
-      const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { id: user.id, username: user.name, email: user.email },
+        SECRET_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
 
       // Autenticação bem-sucedida
       res.status(200).json({ message: "Login successful", token: token });
