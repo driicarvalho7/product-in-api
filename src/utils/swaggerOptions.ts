@@ -1,7 +1,8 @@
 import { ENVIRONMENT } from "./envConfigs";
+import path from "path";
 
 const base_url =
-  ENVIRONMENT == "production"
+  ENVIRONMENT === "production"
     ? "https://product-in-api.onrender.com"
     : "http://localhost:3000";
 
@@ -17,7 +18,10 @@ export const swaggerOptions = {
     servers: [
       {
         url: `${base_url}/api/v0`,
-        description: "Development server",
+        description:
+          ENVIRONMENT === "production"
+            ? "Production server"
+            : "Development server",
       },
     ],
     components: {
@@ -35,5 +39,8 @@ export const swaggerOptions = {
       },
     ],
   },
-  apis: ["./src/routes/*.ts"], // Especifica onde buscar as anotações para o Swagger
+  apis: [
+    path.join(__dirname, "../docs/**/*.swagger.ts"), // Inclui os novos arquivos de documentação
+    path.join(__dirname, "../routes/**/*.ts"), // Suporte a anotações inline (opcional)
+  ],
 };
